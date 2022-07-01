@@ -2,6 +2,7 @@ name: Test
 on:
   workflow_dispatch:
   pull_request:
+  push:
 
 jobs:
 
@@ -15,6 +16,7 @@ jobs:
       - name: Test
         shell: bash
         run: |
+        
           git show-branch -a 2>/dev/null
           PARENT_BRANCH=$(git show-branch -a 2>/dev/null | grep -q '\*' | grep -q -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
           echo $PARENT_BRANCH
