@@ -15,12 +15,10 @@ jobs:
 
       - name: Test
         shell: bash
-        env:
-          # github.ref_name is the name of the branch on push, and the tag on tag
-          GITHUB_REF_NAME: ${{ github.ref_name }}
         run: |
           PARENT_BRANCH=$(php -r '
             preg_match_all("#\*.+\[(.+?)\]#", shell_exec("git show-branch -a 2>/dev/null"), $m);
-            return array_merge(array_filter($m[1], function($v) { return $v != "${{ env.GITHUB_REF_NAME }}"; }))[0] ?? "";
+            $cur = trim(shell_exec("git rev-parse --abbrev-ref HEAD"));
+            echo array_merge(array_filter($m[1], function($v) use ($cur) { return $v != $cur; }))[0] ?? "";
           ')
           echo $PARENT_BRANCH
