@@ -20,14 +20,14 @@ jobs:
           echo A
           echo $(git show-branch -a 2>/dev/null)
           echo B
-          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; })
+          echo $(git show-branch -a 2>/dev/null | { grep \* || :; })
           echo C
-          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; })
+          echo $(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; })
           echo D
-          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1)
+          echo $(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1)
           echo E
-          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/')
+          echo $(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/')
           echo F
-          PARENT_BRANCH=$(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+          PARENT_BRANCH=$(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
           echo $PARENT_BRANCH
 
