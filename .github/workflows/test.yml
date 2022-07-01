@@ -17,7 +17,11 @@ jobs:
         shell: bash
         run: |
           # Note: { grep * || :; } is to prevent exit code of 1 on zero-match from halting workflow
+          echo $(git show-branch -a 2>/dev/null)
+          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; })
+          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; })
+          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1)
+          echo $(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/')
           PARENT_BRANCH=$(git show-branch -a 2>/dev/null | { grep '\*' || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
           echo $PARENT_BRANCH
-
 
