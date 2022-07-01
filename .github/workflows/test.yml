@@ -1,0 +1,16 @@
+name: Test
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  context:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        shell: bash
+        run: |
+          PARENT_BRANCH=$(git show-branch -a 2>/dev/null | grep '\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+          echo $PARENT_BRANCH
