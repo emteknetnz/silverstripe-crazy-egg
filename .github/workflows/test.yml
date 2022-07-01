@@ -16,6 +16,16 @@ jobs:
         shell: bash
         run: |
           # git show-branch -a 2>/dev/null
-          echo 'A'
+          echo A
+          A=$(git show-branch -a)
+          echo B
+          B=$(git show-branch -a | grep '\*')
+          echo C
+          C=$(git show-branch -a | grep '\*' | grep -v `git rev-parse --abbrev-ref HEAD`)
+          echo D
+          D=$(git show-branch -a | grep '\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1)
+          echo E
+          E=$(git show-branch -a | grep '\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\[\(.*\)\].*/\1/')
+          echo PB
           PARENT_BRANCH=$(git show-branch -a | grep '\*' | grep -v `git rev-parse --abbrev-ref HEAD` | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
           echo $PARENT_BRANCH
