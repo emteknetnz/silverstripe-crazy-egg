@@ -18,7 +18,8 @@ class TagProvider extends ViewableData
      */
     public function isEnabled()
     {
-        if (!Environment::getEnv('CRAZY_EGG_APP_KEY')
+        if (
+            !Environment::getEnv('CRAZY_EGG_APP_KEY')
             || !Environment::getEnv('CRAZY_EGG_APP_SECRET')
             || !Environment::getEnv('CRAZY_EGG_ACCOUNT_NUMBER')
             || !$this->config()->get('enabled')
