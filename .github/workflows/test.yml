@@ -18,7 +18,11 @@ jobs:
         run: |
           PARENT_BRANCH=$(php -r '
             preg_match_all("#\*.+\[(.+?)\]#", shell_exec("git show-branch -a 2>/dev/null"), $m);
+            print_r($m);
             $cur = trim(shell_exec("git rev-parse --abbrev-ref HEAD"));
-            echo array_merge(array_filter($m[1], function($v) use ($cur) { return $v != $cur; }))[0] ?? "";
+            var_dump($cur);
+            $arr = array_merge(array_filter($m[1], function($v) use ($cur) { return $v != $cur; }));
+            print_r($arr);
+            echo $arr[0] ?? "";
           ')
           echo $PARENT_BRANCH
