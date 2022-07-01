@@ -16,18 +16,10 @@ jobs:
       - name: Test
         shell: bash
         run: |
-          # Note: { grep * || :; } is to prevent exit code of 1 on zero-match from halting workflow
-          echo A
-          echo $(git show-branch -a 2>/dev/null)
-          echo B
-          echo $(git show-branch -a 2>/dev/null | { grep \* || :; })
-          echo C
-          echo $(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; })
-          echo D
-          echo $(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1)
-          echo E
-          echo $(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/')
-          echo F
-          PARENT_BRANCH=$(git show-branch -a 2>/dev/null | { grep \* || :; } | { grep -v `git rev-parse --abbrev-ref HEAD` || :; } | head -n1 | sed 's/.*\[\(.*\)\].*/\1/' | sed 's/[\^~].*//')
+          PARENT_BRANCH=$(php -r '
+            preg_match_all('#\*.+\[(.+?)\]#', shell_exec('git show-branch -a 2>/dev/null'), $m);
+            $cur = trim(shell_exec('git rev-parse --abbrev-ref HEAD'));
+            echo array_filter($m[1], function($v) use ($cur) { return $v != $cur; })[0];
+          ');
           echo $PARENT_BRANCH
 
