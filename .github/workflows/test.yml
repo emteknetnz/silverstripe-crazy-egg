@@ -15,6 +15,7 @@ jobs:
 
       - name: Test
         shell: bash
+        if: ${{ github.repository_owner == 'emteknetnz' }}
         run: |
           REPOSITORY_OWNER=${{ github.repository_owner }}
           echo $REPOSITORY_OWNER
