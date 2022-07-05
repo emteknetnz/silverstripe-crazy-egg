@@ -9,13 +9,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      
+            
       - name: Checkout code
         uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # v2.4.2
 
       - name: Test
         shell: bash
         run: |
+          REPOSITORY_OWNER=${{ github.repository_owner }}
+          echo $REPOSITORY_OWNER
           PARENT_BRANCH=$(php -r '
             preg_match_all("#\*.+\[(.+?)\]#", shell_exec("git show-branch -a 2>/dev/null"), $m);
             $cur = trim(shell_exec("git rev-parse --abbrev-ref HEAD"));
