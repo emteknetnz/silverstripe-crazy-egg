@@ -9,15 +9,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-            
+
       - name: Checkout code
         uses: actions/checkout@7884fcad6b5d53d10323aee724dc68d8b9096a2e # v2.4.2
+        with:
+          fetch-depth: 0
 
       - name: Test
-        shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "pull-request" ]]; then
-            echo github.event.pull_request
-            echo github.event.pull_request.pull_request
-            echo github.event.pull_request.pull_request.commits
-          fi
+          PARENT_BRANCH=$(php -r '
+            $currentBranch = trim(shell_exec("git rev-parse --abbrev-ref HEAD"));
+            $history = shell_exec("git show-branch -a 2>/dev/null");
+            foreach (explode("\n", $history) as $line) {
+              if (strpos($line, "*") === false || strpos($line, $currentBranch) !== false) {
+                continue;
+              }
+              preg_match("#\[(.+?)[~\^\]]#", $line, $matches);
+              echo $matches[1];
+              break;
+            }
+          ');
+          echo "PARENT_BRANCH IS $PARENT_BRANCH"
+
+      - name: Debug
+        run: |
+          git show-branch -a 2>/dev/null
