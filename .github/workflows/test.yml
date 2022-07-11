@@ -15,13 +15,9 @@ jobs:
 
       - name: Test
         shell: bash
-        if: ${{ github.repository_owner == 'emteknetnz' }}
         run: |
-          REPOSITORY_OWNER=${{ github.repository_owner }}
-          echo $REPOSITORY_OWNER
-          PARENT_BRANCH=$(php -r '
-            preg_match_all("#\*.+\[(.+?)\]#", shell_exec("git show-branch -a 2>/dev/null"), $m);
-            $cur = trim(shell_exec("git rev-parse --abbrev-ref HEAD"));
-            echo array_merge(array_filter($m[1], function($v) use ($cur) { return $v != $cur; }))[0] ?? "";
-          ')
-          echo $PARENT_BRANCH
+          if [[ "${{ github.event_name }}" == "pull-request" ]]; then
+            echo github.event.pull_request
+            echo github.event.pull_request.pull_request
+            echo github.event.pull_request.pull_request.commits
+          fi
