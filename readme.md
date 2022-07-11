@@ -1,6 +1,6 @@
 # SilverStripe Crazy Egg
 
-.
+..
 
 [![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-crazy-egg.svg?style=flat-square)](https://travis-ci.org/silverstripe/silverstripe-crazy-egg)
 [![Code Quality](http://img.shields.io/scrutinizer/g/silverstripe/silverstripe-crazy-egg.svg?style=flat-square)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-crazy-egg)
