@@ -17,20 +17,4 @@ jobs:
 
       - name: Test
         run: |
-          PARENT_BRANCH=$(php -r '
-            $currentBranch = trim(shell_exec("git rev-parse --abbrev-ref HEAD"));
-            $history = shell_exec("git show-branch -a 2>/dev/null");
-            foreach (explode("\n", $history) as $line) {
-              if (strpos($line, "*") === false || strpos($line, $currentBranch) !== false) {
-                continue;
-              }
-              preg_match("#\[(.+?)[~\^\]]#", $line, $matches);
-              echo $matches[1];
-              break;
-            }
-          ');
-          echo "PARENT_BRANCH IS $PARENT_BRANCH"
-
-      - name: Debug
-        run: |
-          git show-branch -a 2>/dev/null
+          echo ${{ github.repository_owner }}
