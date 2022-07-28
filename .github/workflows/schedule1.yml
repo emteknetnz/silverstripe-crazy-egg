@@ -8,6 +8,6 @@ jobs:
   schedule1:
     name: Schedule1
     runs-on: ubuntu-latest
-    if: (github.event_name == 'schedule' && github.repository_owner == 'emteknetnz' || (github.event_name != 'schedule')
+    if: (github.event_name == 'schedule' && github.repository_owner == 'emteknetnz') || (github.event_name != 'schedule')
     steps:
       - run: echo 1
