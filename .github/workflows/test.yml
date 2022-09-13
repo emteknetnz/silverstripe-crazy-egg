@@ -15,7 +15,7 @@ jobs:
 
       - name: Test
         shell: bash
-        env: |
+        env:
           GITHUB_WORKSPACE: ${{ github.workspace }}          
         run: |
           echo "GITHUB_WORKSPACE is $GITHUB_WORKSPACE"
