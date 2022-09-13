@@ -15,7 +15,10 @@ jobs:
 
       - name: Test
         shell: bash
+        env: |
+          GITHUB_WORKSPACE: ${{ github.workspace }}          
         run: |
+          echo "GITHUB_WORKSPACE is $GITHUB_WORKSPACE"
           if [[ "${{ github.event_name }}" == "pull-request" ]]; then
             echo github.event.pull_request
             echo github.event.pull_request.pull_request
