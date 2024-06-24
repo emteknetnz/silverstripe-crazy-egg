@@ -1,3 +1,5 @@
+Test commit
+
 # SilverStripe Crazy Egg
 
 [![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-crazy-egg.svg?style=flat-square)](https://travis-ci.org/silverstripe/silverstripe-crazy-egg)
